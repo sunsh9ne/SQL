@@ -1,0 +1,32 @@
+--Create a sporting goods store database
+
+CREATE TABLE my_store (id INTEGER PRIMARY KEY, name TEXT, aisle TEXT, price INTEGER, return_policy TEXT);
+
+INSERT INTO my_store VALUES (1, "ice skates", "hockey", 359.99, "30 days");
+INSERT INTO my_store VALUES (2, "tennis balls", "tennis", 12.99, "30 days");
+INSERT INTO my_store VALUES (3, "helmet", "hockey", 65.00, "60 days");
+INSERT INTO my_store VALUES (4, "tennis shoes", "tennis", 75.99, "30 days");
+INSERT INTO my_store VALUES (5, "tennis racket", "tennis", 129.99, "60 days");
+INSERT INTO my_store VALUES (6, "bag of pucks", "hockey", 13.99, "NA");
+INSERT INTO my_store VALUES (7, "hockey pants", "hockey", 79.99, "30 days");
+INSERT INTO my_store VALUES (8, "soccer ball", "soccer", 28.99, "30 days");
+INSERT INTO my_store VALUES (9, "volleyball", "volleyball", 26.99, "60 days");
+INSERT INTO my_store VALUES (10, "pickleball paddle", "tennis", 75.99, "30 days");
+INSERT INTO my_store VALUES (11, "net", "volleyball", 65.99, "60 days");
+INSERT INTO my_store VALUES (12, "stick", "hockey", 229.99, "NA");
+INSERT INTO my_store VALUES (13, "gloves", "hockey", 114.99, "30 days");
+INSERT INTO my_store VALUES (14, "mouth guard", "accessories", 12.99, "NA");
+INSERT INTO my_store VALUES (15, "football", "football", 25.99, "30 days");
+
+--display the database ordered by price
+SELECT * FROM my_store 
+ORDER BY price;
+
+--display the most expensive item from each aisle
+SELECT name, aisle, MAX(price) FROM my_store 
+GROUP BY aisle;
+
+--display the average cost of hockey equipment items
+SELECT AVG(price) "avg hockey equipment price"
+FROM my_store
+WHERE aisle='hockey';
