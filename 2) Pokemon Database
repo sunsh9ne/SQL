@@ -814,10 +814,19 @@ INSERT INTO pokemon(Number,Name,Type_1,Type_2,Total,HP,Attack,Defense,Sp_Atk,Sp_
 INSERT INTO pokemon(Number,Name,Type_1,Type_2,Total,HP,Attack,Defense,Sp_Atk,Sp_Def,Speed,Generation,Legendary) VALUES (720,'HoopaHoopa Unbound','Psychic','Dark',680,80,160,60,170,130,80,6,'True');
 INSERT INTO pokemon(Number,Name,Type_1,Type_2,Total,HP,Attack,Defense,Sp_Atk,Sp_Def,Speed,Generation,Legendary) VALUES (721,'Volcanion','Fire','Water',600,80,110,120,130,90,70,6,'True');
 
-SELECT Type_1, MAX(Total), Name FROM pokemon WHERE Generation='1' AND Name NOT LIKE "%Mega%" GROUP BY Type_1;
+--excluding the Megas, display the one Gen 1 pokemon with the highest point total for each Type_1
+SELECT Type_1, MAX(Total), Name 
+FROM pokemon 
+WHERE Generation='1' AND Name NOT LIKE "%Mega%" 
+GROUP BY Type_1;
 
-SELECT Number, Name, HP, Defense, Sp_Def FROM pokemon WHERE Generation='2' AND Name NOT LIKE "%Mega%" AND Legendary='False' ORDER BY (HP + Defense + Sp_Def) DESC LIMIT 6;
+--excluding the Megas and Legendaries, display the 6 best defensive pokemon from Gen 2
+SELECT Number, Name, HP, Defense, Sp_Def 
+FROM pokemon 
+WHERE Generation='2' AND Name NOT LIKE "%Mega%" AND Legendary='False' 
+ORDER BY (HP + Defense + Sp_Def) DESC LIMIT 6;
 
+--each generation of Pokemon takes place in a different region. display the number of Mega pokemon with superior offensive stats, and group them by region
 SELECT CASE
     WHEN Generation='1' THEN "Kanto"
     WHEN Generation='2' THEN "Johto"
@@ -826,4 +835,7 @@ SELECT CASE
     WHEN Generation='5' THEN "Unova"
     WHEN Generation='6' THEN "Kalos"
     END AS "Region",
-COUNT(*) AS Megas_w_Superior_Offense FROM pokemon WHERE Name LIKE "%MEGA%" AND (Attack > 150 OR Sp_Atk > 150) GROUP BY Region;
+COUNT(*) AS Megas_w_Superior_Offense 
+FROM pokemon 
+WHERE Name LIKE "%MEGA%" AND (Attack > 150 OR Sp_Atk > 150) 
+GROUP BY Region;
